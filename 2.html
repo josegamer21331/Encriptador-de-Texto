@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+<head>
+	
+	<link rel="stylesheet" type="text/css" href="styles.css">
+    <script src="script.js"></script>
+	<meta charset="utf-8">
+    <title>2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        label, input, select, button {
+            display: block;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #resultado {
+            background-color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 400px;
+        }
+        #copiar {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            display: none;
+        }
+        #copiar:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Encriptación y Desencriptación</h1>
+    
+    <form>
+        <label for="mensaje">Texto:</label>
+        <input type="text" id="mensaje" placeholder="Escribe un mensaje">
+        <select id="accion">
+            <option value="encriptar">Encriptar</option>
+            <option value="desencriptar">Desencriptar</option>
+        </select>
+        <button type="button" onclick="realizarAccion()">Realizar Acción</button>
+        <button id="copiar" type="button" onclick="copiarResultado()">Copiar al Portapapeles</button>
+    </form>
+
+    <h2>Resultado</h2>
+    <div id="resultado"></div>
+
+    <script>
+        function realizarAccion() {
+            const mensaje = document.getElementById('mensaje').value.toLowerCase();
+            const accion = document.getElementById('accion').value;
+            let resultado = '';
+
+            if (accion === 'encriptar') {
+                resultado = encriptar(mensaje);
+            } else if (accion === 'desencriptar') {
+                resultado = desencriptar(mensaje);
+            }
+
+            const resultadoDiv = document.getElementById('resultado');
+            resultadoDiv.textContent = resultado;
+            document.getElementById('copiar').style.display = 'block';
+        }
+
+        function encriptar(texto) {
+            return texto
+                .replace(/e/g, 'enter')
+                .replace(/i/g, 'imes')
+                .replace(/a/g, 'ai')
+                .replace(/o/g, 'ober')
+                .replace(/u/g, 'ufat');
+        }
+
+        function desencriptar(texto) {
+            return texto
+                .replace(/enter/g, 'e')
+                .replace(/imes/g, 'i')
+                .replace(/ai/g, 'a')
+                .replace(/ober/g, 'o')
+                .replace(/ufat/g, 'u');
+        }
+
+        function copiarResultado() {
+            const resultadoTexto = document.getElementById('resultado');
+            const textarea = document.createElement('textarea');
+            textarea.value = resultadoTexto.textContent;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+            alert('Resultado copiado al portapapeles');
+        }
+    </script>
+</body>
+</html>
